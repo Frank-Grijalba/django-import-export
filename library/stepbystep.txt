@@ -46,7 +46,5 @@ trying to assign a value to the  categories  field of the  Book  instance direct
 
 >>> book1.categories.set([category_drama])
 
-https://django-import-export.readthedocs.io/en/1.2.0/getting_started.html
-
 Create a super user
 python manage.py createsuperuser
