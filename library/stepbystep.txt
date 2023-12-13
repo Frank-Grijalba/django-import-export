@@ -1,0 +1,49 @@
+Install:
+django-admin startproject library
+django-admin startapp book
+pip install django-import-export
+
+In settings.py, add the news apps:
+'''
+INSTALLED_APPS = [
+    'import_export',
+    'book',
+]
+'''
+
+Run the server
+python manage.py runserver
+
+Shell of django
+python manage.py shell
+
+Migrate the new models:
+python manage.py migrate
+python manage.py makemigrations
+
+Create new data:
+For Author:
+>>> from book.models import Author
+>>> authors = [Author(name="Gabriel Garcia Marquez"), Author(name="Carlos Cuauhtémoc Sánchez")]
+>>> Author.objects.bulk_create(authors)
+[<Author: Author object (1)>, <Author: Author object (2)>]
+
+For Category:
+>>> from book.models import Category
+>>> categories = [Category(name="Drama"), Category(name="Suspense")]
+>>> Category.objects.bulk_create(categories)
+[<Category: Category object (1)>, <Category: Category object (2)>]
+
+
+For book
+>>> author_gabriel = Author.objects.get(id=1)
+>>> category_drama = Category.objects.get(id=1)
+>>> book1= Book.objects.create(name="Cien años de soledad", 
+    author=author_gabriel, author_email="gabo@gmail.com", 
+    imported=0, published="2012-12-05", price=10.0)
+
+trying to assign a value to the  categories  field of the  Book  instance directly. This is not allowed because the  categories  field is a many-to-many relationship. To assign a value to the  categories  field, you need to use the  categories.set() 
+
+>>> book1.categories.set([category_drama])
+
+https://django-import-export.readthedocs.io/en/1.2.0/getting_started.html
