@@ -20,13 +20,23 @@ admin.site.register(Category)
 
 
 # It is possible to override a resource field to change some of its options:
+# class BookResource(resources.ModelResource):
+#     published = Field(attribute="published", column_name="published_date")
+#     # Other fields that don’t exist in the target model may be added
+#     myField = Field(column_name='myownfield')
+
+#     class Meta:
+#         model = Book
+
+
 class BookResource(resources.ModelResource):
-    published = Field(attribute="published", column_name="published_date")
-    # Other fields that don’t exist in the target model may be added
-    myField = Field(column_name='myownfield')
+    full_title = Field()
 
     class Meta:
         model = Book
+
+    def dehydrate_full_title(self, book):
+        return "%s by %s" % (book.name, book.author.name)
 
 
 class AuthorResource(resources.ModelResource):
