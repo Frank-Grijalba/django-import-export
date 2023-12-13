@@ -8,11 +8,17 @@ class Author(models.Model):
     def __unicode__(self):
         return self.name
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Category(models.Model):
     name = models.CharField("Category", max_length=100)
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
 
 
@@ -26,4 +32,7 @@ class Book(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name

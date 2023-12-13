@@ -3,13 +3,18 @@ from import_export import resources
 from book.models import Book, Author, Category
 
 
+admin.site.register(Book)
+admin.site.register(Author)
+admin.site.register(Category)
+
+
 class BookResource(resources.ModelResource):
     class Meta:
         model = Book
         fields = (
             "id",
             "name",
-            "author",
+            "author__name",
         )
 
 
