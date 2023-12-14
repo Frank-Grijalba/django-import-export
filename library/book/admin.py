@@ -2,31 +2,12 @@ from django.contrib import admin
 from import_export import resources
 from import_export.fields import Field
 from book.models import Book, Author, Category
+from import_export.admin import ImportExportModelAdmin
 
 
-admin.site.register(Book)
-admin.site.register(Author)
-admin.site.register(Category)
-
-
-# class BookResource(resources.ModelResource):
-#     class Meta:
-#         model = Book
-#         fields = (
-#             "id",
-#             "name",
-#             "author__name",
-#         )
-
-
-# It is possible to override a resource field to change some of its options:
-# class BookResource(resources.ModelResource):
-#     published = Field(attribute="published", column_name="published_date")
-#     # Other fields that don’t exist in the target model may be added
-#     myField = Field(column_name='myownfield')
-
-#     class Meta:
-#         model = Book
+admin.site.register(Book, ImportExportModelAdmin)
+admin.site.register(Author, ImportExportModelAdmin)
+admin.site.register(Category, ImportExportModelAdmin)
 
 
 class BookResource(resources.ModelResource):
@@ -35,8 +16,8 @@ class BookResource(resources.ModelResource):
     class Meta:
         model = Book
 
-    def dehydrate_full_title(self, book):
-        return "%s by %s" % (book.name, book.author.name)
+    # def dehydrate_full_title(self, book):
+    #     return "%s by %s" % (book.name, book.author.name)
 
 
 class AuthorResource(resources.ModelResource):
